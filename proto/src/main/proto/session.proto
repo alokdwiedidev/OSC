@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package session;
+
+
+
+// Request message for checking user session
+message LoginCheckRequest {
+    string userId = 1;
+    string device=2;
+}
+// Response message for checking user session
+message LoginCheckResponse {
+    bool isLoggedIn = 1;
+}
+
+message LogoutSessionIdCheckRequest{
+    string userId=1;
+    string  sessionId=2;
+}
+
+message LogoutSessionIdCheckResponse{
+    bool isSessionIdValid=1;
+}
+
+
+// Session service definition
+service SessionService {
+// Check user session endpoint
+    rpc isUserLoggedIn(LoginCheckRequest) returns (LoginCheckResponse);
+    rpc sessionIdCheck(LogoutSessionIdCheckRequest)returns (LogoutSessionIdCheckResponse);
+}
