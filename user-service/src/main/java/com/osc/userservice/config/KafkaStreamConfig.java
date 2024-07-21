@@ -24,6 +24,8 @@ public class KafkaStreamConfig {
 
     @Value("${kafka.application.idF}")
     private String applicationIdf;
+    @Value("${kafka.application.iduser}")
+    private String applicationIdUser;
     private KafkaStreams kafkaStreams;
 
     @Bean
@@ -40,6 +42,15 @@ public class KafkaStreamConfig {
     public Properties kafkaStreamsPropertie2() {
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, applicationIdf);
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        return props;
+    }
+    @Bean
+    public Properties kafkaStreamsProperties3() {
+        Properties props = new Properties();
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, applicationIdUser);
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());

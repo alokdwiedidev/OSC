@@ -27,6 +27,6 @@ public class LoginController {
     public ResponseEntity<ApiResponse<Object>> loginUser(@Valid @RequestBody LoginDTO userLoginDTO) {
         log.info("inside login controller");
         LoginResponseDto loginResponseDto = loginService.loginUser(userLoginDTO);
-        return ResponseEntity.ok().body(new ApiResponse<>(HttpStatus.OK.value(), loginResponseDto));
+        return ResponseEntity.ok().body(new ApiResponse<>(200, loginResponseDto));
     }
 }

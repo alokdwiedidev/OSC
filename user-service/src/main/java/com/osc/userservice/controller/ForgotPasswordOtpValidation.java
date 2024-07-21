@@ -28,7 +28,7 @@ public class ForgotPasswordOtpValidation {
     @GetMapping("/validateOtp")
     private ResponseEntity<ApiResponse<Object>> otpValidatioForgotPassword(@RequestBody ForgotPassOtpValidatioDto otpValidationDTO) throws JsonProcessingException {
          forgotPasswordOtpService.validateOtp(otpValidationDTO.getEmail(), otpValidationDTO.getOtp());
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(HttpStatus.OK.value(), null));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(200, null));
 
     }
 }

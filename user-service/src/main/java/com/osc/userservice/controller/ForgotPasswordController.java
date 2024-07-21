@@ -25,7 +25,7 @@ public class ForgotPasswordController {
     public ResponseEntity<ApiResponse<Object>> sendOtpForForgotPass(@RequestBody ForgotPasswordDto forgotPasswordDto) throws JsonProcessingException {
         log.info("inside the meathod :{}" + forgotPasswordDto.getEmail());
          forgotPassOtpService.validateEmailAndOtp(forgotPasswordDto);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(HttpStatus.OK.value(), null));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(200, null));
 
 
     }

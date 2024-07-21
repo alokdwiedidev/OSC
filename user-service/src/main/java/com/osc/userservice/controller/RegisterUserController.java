@@ -27,6 +27,6 @@ public class RegisterUserController {
     public ResponseEntity<ApiResponse<Object>> registerUser(@Valid @RequestBody RegisterUserDto userRegistrationDTO) throws JsonProcessingCustomException {
        String userId=userService.registerUser(userRegistrationDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ApiResponse<>(HttpStatus.CREATED.value(), Map.of("userId", userId)));
+                .body(new ApiResponse<>(200, Map.of("userId", userId)));
     }
 }

@@ -20,6 +20,6 @@ public class PasswordChangeController {
     @PatchMapping("/changePassword")
     public ResponseEntity<ApiResponse<Object>> changePassword(@Validated @RequestBody ChangePasswordRequestDTO changePasswordRequestDTO) {
          passwordChangeService.changePassword(changePasswordRequestDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(HttpStatus.OK.value(), null));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(200, null));
     }
 }

@@ -22,6 +22,6 @@ public class RegisterPasswordController {
     @PatchMapping("/")
     public ResponseEntity<ApiResponse<Object>> createPassword(@Valid @RequestBody PasswordDTO passwordDTO) {
          passwordService.createPassword(passwordDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(HttpStatus.CREATED.value(), null));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(200, null));
     }
 }

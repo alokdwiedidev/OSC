@@ -25,6 +25,6 @@ public class LogoutController {
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<Object>>  logoutUser(@Valid @RequestBody LogoutDTO logoutDTO) {
         logoutService.logoutUser(logoutDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(HttpStatus.OK.value(), null));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, null));
     }
 }

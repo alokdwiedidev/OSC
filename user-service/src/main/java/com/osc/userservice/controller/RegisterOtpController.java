@@ -20,6 +20,6 @@ public class RegisterOtpController {
     @GetMapping("/")
     public ResponseEntity<ApiResponse<Object>> validateOtp(@Valid @RequestBody OtpValidationDTO otpValidationDTO) {
       otpService.validateOtp(otpValidationDTO.getUserId(), otpValidationDTO.getOtp());
-      return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<> (HttpStatus.OK.value(), "OTP validated successfully"));
+      return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<> (200, "OTP validated successfully"));
     }
 }
