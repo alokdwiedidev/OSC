@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/users")
 @RestController
+@CrossOrigin(origins = "*")
 public class PasswordChangeController {
     private PasswordChangeService passwordChangeService;
 

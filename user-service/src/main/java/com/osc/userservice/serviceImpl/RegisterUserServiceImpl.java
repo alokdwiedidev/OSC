@@ -74,15 +74,13 @@ public class RegisterUserServiceImpl implements RegisterUserService {
             userData = objectMapper.writeValueAsString(userTopicDto);
             otpData = objectMapper.writeValueAsString(otpTopicDto);
         } catch (JsonProcessingException e) {
-            throw new JsonProcessingCustomException("Error processing user registration JSON", e);
+            throw new JsonProcessingCustomException("Error processing user registration JSON");
         }
         // Send registration data to Kafka
         kafkaConfig.sendMessage(USERTOPIC, userId, userData);
         kafkaConfig.sendMessage(OTPTOPIC,userId,otpData);
-
         // Response
         return userId;
-
     }
 
 

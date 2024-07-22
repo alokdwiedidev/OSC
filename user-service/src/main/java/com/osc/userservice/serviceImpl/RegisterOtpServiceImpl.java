@@ -142,17 +142,6 @@ public class RegisterOtpServiceImpl implements RegisterOtpService {
     }
 
 
-    @Override
-    public String getOtpStore(String userId) {
-        try {
-            System.out.println("otp store " + otpStore.get(userId));
-            return otpStore.get(userId);
-        } catch (Exception e) {
-            log.error("Error retrieving OTP store for userId {}: {}", userId, e.getMessage());
-            return null;
-        }
-    }
-
     private void incrementOtpAttempts(String userId, JsonNode storedDataJson) {
         int attempts = storedDataJson.get("otpCount").asInt() + 1;
         sendNewOtp(userId, storedDataJson.get("otp").asText(), attempts);

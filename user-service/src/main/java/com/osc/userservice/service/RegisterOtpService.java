@@ -1,13 +1,12 @@
 package com.osc.userservice.service;
 
-import com.osc.userservice.responce.ApiResponse;
-import org.springframework.http.ResponseEntity;
+import com.osc.userservice.excetion.JsonProcessingCustomException;
 
 public interface RegisterOtpService {
 
     String generateOtp();
 
-    void validateOtp(String userId, String otp);
+    void validateOtp(String userId, String otp) throws JsonProcessingCustomException;
 
-    public String getOtpStore(String userId);
+
 }

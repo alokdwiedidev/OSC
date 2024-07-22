@@ -1,24 +1,21 @@
 package com.osc.userservice.excetion;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.protobuf.Api;
 import com.osc.userservice.responce.ApiResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
     @ExceptionHandler(JsonProcessingCustomException.class)
     public ResponseEntity<ApiResponse<Object>> handleJsonProcessingCustomException(JsonProcessingCustomException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), null));
+                .body(new ApiResponse<>(0, null));
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
@@ -63,6 +60,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse<>(202, null));
 
     }
+    @ExceptionHandler(LoginException.TooManyRequestsException.class)
+    public  ResponseEntity<ApiResponse<Object>> handleMaximumAttempts(LoginException.TooManyRequestsException ex){
+        log.error("maximum attempt reached: {}", ex.getMessage());
+        return  ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(new ApiResponse<>(205,null));
+    }
 
     @ExceptionHandler(LoginException.UserAlreadyLoggedInException.class)
     public ResponseEntity<ApiResponse<Object>> handleUserAlreadyLoggedInException(LoginException.UserAlreadyLoggedInException ex) {
@@ -73,6 +75,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(LoginException.SessionDataProcessingException.class)
     public ResponseEntity<ApiResponse<Object>> handleSessionDataProcessingException(LoginException.SessionDataProcessingException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), null));
+    }
+
+    @ExceptionHandler(LoginException.UserNotFoundException.class)
+    public ResponseEntity<ApiResponse<Object>> handleUserNotFoundwhenLoginException(LoginException.UserNotFoundException ex) {
+        log.error("User not found: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(201, null));
     }
 
     @ExceptionHandler(LogoutException.UserNotFoundException.class)
@@ -102,6 +110,5 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ForgotPasswordException.OTPProcessingException.class)
     public ResponseEntity<ApiResponse<Object>> handleOTPProcessingException(ForgotPasswordException.OTPProcessingException ex, WebRequest request) {
        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ApiResponse<>(199,null));
-
     }
 }

@@ -21,7 +21,7 @@ public class RegisterUserDto {
     @Email(message = "Invalid email format")
     private String email;
 
-    @NotNull
+
     private String dob;
 
 

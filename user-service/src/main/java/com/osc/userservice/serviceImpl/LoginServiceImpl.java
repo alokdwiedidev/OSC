@@ -51,10 +51,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginResponseDto loginUser(LoginDTO userLoginDTO) {
         String userId = userLoginDTO.getUserId();
-        if (loginAttempts.getOrDefault(userLoginDTO.getUserId(), 0) >= MAX_ATTEMPTS) {
-            throw new LoginException.TooManyRequestsException("Maximum login attempts exceeded for userId: ");
 
-        }
         Optional<User> userOptional = userRepository.findByUserId(userLoginDTO.getUserId());
         User user = userOptional.orElseThrow(() -> new LoginException.UserNotFoundException("User not found with userId: " + userId));
 
@@ -84,13 +81,17 @@ public class LoginServiceImpl implements LoginService {
         } catch (JsonProcessingException e) {
             throw new LoginException.SessionDataProcessingException("Error processing session data", e);
         }
+        if (loginAttempts.getOrDefault(userLoginDTO.getUserId(), 0) >= MAX_ATTEMPTS) {
+            throw new LoginException.TooManyRequestsException("Maximum login attempts exceeded for userId: ");
+
+        }
 
 return new LoginResponseDto(sessionId,user.getName());
 
     }
 
     private void incrementLoginAttempts(String email) {
-        loginAttempts.put(email, loginAttempts.getOrDefault(email, 0) + 1);
+        loginAttempts.put(email, loginAttempts.getOrDefault(email, 1) + 1);
     }
 
     private void resetLoginAttempts(String email) {

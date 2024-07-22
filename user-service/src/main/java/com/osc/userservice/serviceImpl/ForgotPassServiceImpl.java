@@ -49,9 +49,7 @@ public class ForgotPassServiceImpl implements ForgotPassService {
         log.info("User found: {}", foundUser);
 
         String otp = otpService.generateOtp();
-        ForgotPasswordMessageDto messageDto = new ForgotPasswordMessageDto();
-        messageDto.setEmail(forgotPasswordDto.getEmail());
-        messageDto.setOtp(otp);
+        ForgotPasswordMessageDto messageDto = new ForgotPasswordMessageDto(otp,forgotPasswordDto.getEmail(),1);
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String message = objectMapper.writeValueAsString(messageDto);

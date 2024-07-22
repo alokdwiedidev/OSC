@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 
 public class OtpValidationDTO {
 
-    @NotNull
     private String userId;;
 
-    @NotNull
-    private String otp;
+
+    private String OTP;
 }
 
 

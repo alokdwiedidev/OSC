@@ -7,13 +7,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/users")
 @RestController
+@CrossOrigin(origins = "*")
 public class LogoutController {
     @Autowired
     private LogoutService logoutService;
@@ -23,7 +21,7 @@ public class LogoutController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Object>>  logoutUser(@Valid @RequestBody LogoutDTO logoutDTO) {
+    public ResponseEntity<ApiResponse<Object>> logoutUser(@Valid @RequestBody LogoutDTO logoutDTO) {
         logoutService.logoutUser(logoutDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, null));
     }
