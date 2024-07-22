@@ -143,7 +143,7 @@ public class ForgotPasswordOtpServiceImpl implements ForgotPasswordOtpService {
         return String.valueOf(otp);
     }
 
-    private void incrementOtpAttempts(String email, JsonNode storedDataJson) {
+    private void incrementOtpAtgtempts(String email, JsonNode storedDataJson) {
         int attempts = storedDataJson.get("count").asInt() + 1;
         sendNewOtp(email, storedDataJson.get("otp").asText(), attempts);
     }
